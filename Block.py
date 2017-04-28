@@ -25,10 +25,8 @@ class Block(Sprite):
 			self.y += self.fall
 		if (self.move_left and self.x > 100):
 			self.x -= self.speed
-
 		if (self.move_right and self.x < 400):
 			self.x += self.speed
-
 		if (self.turn_left and self.y != 500 and self.fall != 0):
 			turn += 90
 			self.image = pygame.transform.rotate(self.image,turn)
@@ -59,7 +57,8 @@ class Block(Sprite):
 		elif direction == 'turn_right':
 			self.turn_right = true_or_false
 
-
+	def draw_me(self):
+		self.screen.blit(self.image, [self.x,self.y])
 
 
 
