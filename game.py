@@ -17,13 +17,8 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("dear god please work")
 game_on = True
 turn = 0
-# test_block = Test_Block('./images/e_starman.gif',screen,400,500)
-# test_block2 = Test_Block('./images/e_starman.gif',screen,300,500)
-# test_block3 = Test_Block('./images/e_starman.gif',screen,200,500)
-test_group = Group()
-block_group = Group()
-# test_group.add(test_block)
-
+set_group = Group()
+fall_group = Group()
 
 # ** -- MAIN GAME LOOP -- **
 while game_on:
@@ -32,7 +27,7 @@ while game_on:
 # ** -- BACKGROUND LOAD -- **	
 	screen.fill(background_color)
 
-	if len(block_group) == 0:
+	if len(fall_group) == 0:
 		block_types = ['I','J','L','S','Z','T','SQUARE']
 		random_number = randint(0, len(block_types) - 1)
 		if block_types[random_number] == 'I':
@@ -49,43 +44,43 @@ while game_on:
 			block = Block(screen,'./images/T_Block.png')
 		else:
 			block = Block(screen,'./images/Square.png')
-		block_group.add(block)		
+		fall_group.add(block)		
 
 
-	for block in block_group:
+	for block in fall_group:
 		button_events(block)
 		block.movement(turn)
 
-		for blocks in block_group:
+		for blocks in fall_group:
 			if blocks.rect.bottom >= 500:
-				block_group.remove(blocks)
-				test_group.add(blocks)
+				fall_group.remove(blocks)
+				set_group.add(blocks)
 
 
-		for tests in test_group:
+		for tests in set_group:
 			if (block.rect.bottom >= tests.rect.top and block.rect.left <= tests.rect.right):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 			elif (block.rect.bottom >= tests.rect.top and block.rect.right >= tests.rect.left):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 			if (block.rect.bottom >= 500 and block.rect.left <= tests.rect.right):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 			elif (block.rect.bottom >= 500 and block.rect.right >= tests.rect.left):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 			if (block.rect.bottom >= 500 and block.rect.left <= 100):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 			elif (block.rect.bottom >= 500 and block.rect.left >= 400):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 			elif (block.rect.bottom >= 500):
-				block_group.remove(block)
-				test_group.add(block)
+				fall_group.remove(block)
+				set_group.add(block)
 
-	for test in test_group:
+	for test in set_group:
 		test.draw_me()
 
 
