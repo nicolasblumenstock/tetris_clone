@@ -11,8 +11,8 @@ class Test_Block(Sprite):
 		self.y = start_y
 		self.fall = 25
 		self.rect = self.image.get_rect()
-		self.rect.top = self.y
-		self.rect.left = self.x
+		self.rect.bottom = self.y
+		self.rect.right = self.x
 
 	def draw_me(self):
 		self.screen.blit(self.image, [self.x,self.y])

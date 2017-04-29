@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+from random import randint
 
 class Block(Sprite):
 	def __init__(self,screen,image):
@@ -16,8 +17,8 @@ class Block(Sprite):
 		self.turn_left = False
 		self.turn_right = False
 		self.rect = self.image.get_rect()
-		self.rect.top = self.x
-		self.rect.left = self.y
+		self.rect.centerx = self.x
+		self.rect.centery = self.y
 
 	def movement(self,turn):
 		self.screen.blit(self.image,[self.x,self.y])
@@ -39,11 +40,12 @@ class Block(Sprite):
 			self.turn_right = False
 		if (self.drop_down and self.y < 500):
 			self.y += 2 * self.fall
-		if (self.y == 500):
+		if (self.y >= 500):
 			self.speed = 0
 			self.fall = 0
-		self.rect.top = self.y
-		self.rect.left = self.x
+		self.rect.centery = self.y
+		self.rect.centerx = self.x
+		print self.rect.bottom, self.rect.right
 
 	def should_move(self,direction,true_or_false):
 		if direction == 'left':
@@ -59,6 +61,7 @@ class Block(Sprite):
 
 	def draw_me(self):
 		self.screen.blit(self.image, [self.x,self.y])
+
 
 
 
