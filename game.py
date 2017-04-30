@@ -3,18 +3,18 @@ import pygame
 from random import randint
 from Game_Functions import *
 from Block import Block
-from pygame.sprite import Group, groupcollide
-from Test_Block import Test_Block
+from pygame.sprite import Group, groupcollide, spritecollide
+# from Test_Block import Test_Block
 
 # ** -- INITIALIZE PYGAME -- **
 pygame.init()
 
 # ** -- VARIABLES -- **
 frame = 0
-screen_size = (900, 675)
+screen_size = (250, 500)
 background_color = (255, 255, 255)
 screen = pygame.display.set_mode(screen_size)
-pygame.display.set_caption("dear god please work")
+pygame.display.set_caption("something slowly resembling tetris")
 game_on = True
 turn = 0
 set_group = Group()
@@ -49,7 +49,7 @@ while game_on:
 
 	for block in fall_group:
 		button_events(block)
-		block.movement(turn)
+		block.movement(turn,frame)
 
 		for blocks in fall_group:
 			if blocks.rect.bottom >= 500:
@@ -57,35 +57,51 @@ while game_on:
 				set_group.add(blocks)
 
 
-		for tests in set_group:
-			if (block.rect.bottom >= tests.rect.top and block.rect.left <= tests.rect.right):
-				fall_group.remove(block)
-				set_group.add(block)
-			elif (block.rect.bottom >= tests.rect.top and block.rect.right >= tests.rect.left):
-				fall_group.remove(block)
-				set_group.add(block)
-			if (block.rect.bottom >= 500 and block.rect.left <= tests.rect.right):
-				fall_group.remove(block)
-				set_group.add(block)
-			elif (block.rect.bottom >= 500 and block.rect.right >= tests.rect.left):
-				fall_group.remove(block)
-				set_group.add(block)
-			if (block.rect.bottom >= 500 and block.rect.left <= 100):
-				fall_group.remove(block)
-				set_group.add(block)
-			elif (block.rect.bottom >= 500 and block.rect.left >= 400):
-				fall_group.remove(block)
-				set_group.add(block)
-			elif (block.rect.bottom >= 500):
-				fall_group.remove(block)
-				set_group.add(block)
+		# for tests in set_group:
+		# 	if (block.rect.bottom >= tests.rect.top and block.rect.left <= tests.rect.right):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+		# 	elif (block.rect.bottom >= tests.rect.top and block.rect.right >= tests.rect.left):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+		# 	elif (block.rect.bottom >= 500 and block.rect.left <= tests.rect.right):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+		# 	elif (block.rect.bottom >= 500 and block.rect.right >= tests.rect.left):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+		# 	elif (block.rect.bottom >= 500 and block.rect.left <= 100):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+		# 	elif (block.rect.bottom >= 500 and block.rect.left >= 400):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+		# 	elif (block.rect.bottom >= 500):
+		# 		groupcollide(fall_group,set_group,True,False)
+		# 		set_group.add(block)
+
+
+		if groupcollide(fall_group,set_group,True,False):
+			set_group.add(block)
+		# if pygame.sprite.spritecollideany(block,set_group):
+		# 	fall_group.remove(block)
+		# 	set_group.add(block)
+
 
 	for test in set_group:
 		test.draw_me()
 
+	
 
 
-	pygame.display.flip()
+
+	pygame.display.update()
 
 
 

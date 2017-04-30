@@ -22,6 +22,14 @@ class Test_Block(Sprite):
 		# 	self.fall = 0
 		# print self.rect
 
-	
+class Draw_Block(Sprite):
+	def __init__(self):
+		super(Draw_Block,self).__init__()
+		self.screen = screen
+		self.x = 
+		self.y = 
+		self.fall = 
+		self.rect = self.image.get_rect()
+		
 
 
